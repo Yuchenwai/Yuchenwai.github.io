@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-11-20T06:05:06.150Z</updated>
+  <updated>2025-11-20T09:59:15.085Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,22 +17,29 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/2025/11/20/hello-world/"/>
-    <id>http://example.com/2025/11/20/hello-world/</id>
-    <published>2025-11-20T06:05:06.150Z</published>
-    <updated>2025-11-20T06:05:06.150Z</updated>
+    <title>批量修改角色权限</title>
+    <link href="http://example.com/2025/11/20/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E8%A7%92%E8%89%B2%E6%9D%83%E9%99%90/"/>
+    <id>http://example.com/2025/11/20/%E6%89%B9%E9%87%8F%E4%BF%AE%E6%94%B9%E8%A7%92%E8%89%B2%E6%9D%83%E9%99%90/</id>
+    <published>2025-11-20T09:50:00.000Z</published>
+    <updated>2025-11-20T09:59:15.085Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a class="link"   href="https://hexo.io/" >Hexo<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>! This is your very first post. Check <a class="link"   href="https://hexo.io/docs/" >documentation<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> or you can ask me on <a class="link"   href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure></div><p>More info: <a class="link"   href="https://hexo.io/docs/writing.html" >Writing<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure></div><p>More info: <a class="link"   href="https://hexo.io/docs/server.html" >Server<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure></div><p>More info: <a class="link"   href="https://hexo.io/docs/generating.html" >Generating<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure></div><p>More info: <a class="link"   href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>]]></content>
+    <content type="html"><![CDATA[<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>当采用部门邀请码注册的方式的时候，会为每个账户默认新建一个角色名称，名为姓名+月份+日期</p><p>考虑到不能定义一个统一的部门下的用户角色，不然无法给单独某个用户修改菜单权限，即不用动原来自注册账号开通助手的代码。</p><p>定义一个接口，&#x2F;batchUpdateMenu.do，只修改用户角色的菜单权限，既然要批量修改，那么在后端批量修改前需要将勾选了需要批量修改菜单权限的角色的菜单权限置空，然后再进行新增角色的菜单权限。</p><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>1.首先判断是否未选择列表数据，未选择则提示选择并返回。</p><p>2.其次再判断当前要批量修改的角色是否是部门角色，如果是，则进行提示批量修改中选择了部门角色并返回。</p><p>3.当发送确认请求的时候，弹出警告框，告知用户这样操作会删除选中角色之前的菜单权限，当用户点击确认后再向后端接口发送请求。</p><p>4.后端接口，先从request中拿到sessionUser，然后判断一下sessionUser的类型，是否为管理员，不是管理员的话给予提示并终止操作。</p><p>5.sessionUser确定是管理员后，首先对前端传递的要修改的角色Ids和菜单权限Ids进行判空处理，如果为空，应该返回给前端异常信息。</p><p>6.对字符串类型的Ids进行处理，拿到对应的集合然后遍历roleIdsList，在遍历中查询数据库获取对应的记录，将记录数中对应的菜单权限置空，更新记录数。</p><p>7.最后根据roleIdsList和menuIdsList来新增菜单权限。</p>]]></content>
     
     
       
       
-    <summary type="html">&lt;p&gt;Welcome to &lt;a class=&quot;link&quot;   href=&quot;https://hexo.io/&quot; &gt;Hexo&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-</summary>
+    <summary type="html">&lt;h3 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h3&gt;&lt;p&gt;当采用部门邀请码注册的方式的时候，会为每个账户默认新建一个角色名称，名为姓名+月份+日期&lt;/p&gt;
+&lt;p&gt;考虑到不能定义一个统一的部门下的用户</summary>
       
     
     
     
+    <category term="技术" scheme="http://example.com/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="全栈" scheme="http://example.com/tags/%E5%85%A8%E6%A0%88/"/>
+    
+    <category term="日记" scheme="http://example.com/tags/%E6%97%A5%E8%AE%B0/"/>
     
   </entry>
   
